@@ -3,7 +3,7 @@ function NavBar() {
   return (
     <div>
         <div className='bg-gradient-to-b from-cyan-500 to-sky-600 flex justify-center'>
-            <div className='w-9/12 sm:flex sm:justify-between p-3'>
+            <div className='w-9/12 sm:flex sm:justify-between py-3'>
                 <div>
                     <h1 className='text-3xl font-semibold text-white'>DEMO Streaming</h1>
                 </div>
