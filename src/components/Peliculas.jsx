@@ -3,9 +3,16 @@ import { useEffect, useState } from "react";
 import { getData } from "../libs/data";
 import Loading from "./Loading";
 import Error from "./Error";
+import Popup from "./Popup";
 
 function Peliculas() {
-  const getSerie = async ()=>{
+  const [data, setData]=useState([])
+  const [load, setLoad] = useState(true)
+  const [movie, setMovie]= useState({});
+  const [popup, setPopup] = useState(false)
+  const [error,setError] = useState(false);
+
+  const getMovie = async ()=>{
     try {
       setData( await getData('movie'));
     } catch (error) {
@@ -13,12 +20,17 @@ function Peliculas() {
     }
       setLoad(false)
   }
+
+  function handleClick(movie){
+    setPopup(true);
+    setMovie(movie);
+    console.log(movie)
+  }
+
   useEffect(() => {
-    getSerie()
+    getMovie()
   }, []);
-  const [data, setData]=useState([])
-  const [load, setLoad] = useState(true)
-  const [error,setError] = useState(false);
+
 
 if(load){
   return(<Loading/>)
@@ -31,9 +43,10 @@ if(error){
     <div className="flex flex-wrap justify-center">
     {
       data.map((movie)=>{
-          return <Card titulo={movie.title} imagen={movie.images["Poster Art"].url} key={movie.title}/>
+          return <Card handleClick={()=>handleClick(movie)} titulo={movie.title} imagen={movie.images["Poster Art"].url} key={movie.title}/>
       })
     }
+    {popup && <Popup titulo={movie.title} imagen={movie.images["Poster Art"].url} description={movie.description} anio={movie.releaseYear} close={()=> setPopup(false)} />}
     </div>
   )
 }
