@@ -9,8 +9,8 @@ function Card({titulo,imagen,handleClick}) {
         <div className="w-9/12 py-7 flex flex-col sm:flex-row">
 
             <div className="w-56 flex flex-col items-center justify-center">
-              <div className="bg-black w-full h-full relative flex items-center justify-center">
-                <img className="w-full h-64" src={imagen} />
+              <div className="bg-black w-full h-full relative flex items-center justify-center  border-4 border-transparent hover:border-white hover:opacity-75">
+                <img className="w-full h-64 " src={imagen} />
               </div>
               <p className="cursor-pointer" onClick={handleClick}>{titulo}</p>
             </div>
