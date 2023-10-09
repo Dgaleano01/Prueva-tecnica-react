@@ -1,22 +1,40 @@
+import Card from "./Card";
+import { useEffect, useState } from "react";
+import { getData } from "../libs/data";
+import Loading from "./Loading";
+import Error from "./Error";
 
+function Peliculas() {
+  const getSerie = async ()=>{
+    try {
+      setData( await getData('movie'));
+    } catch (error) {
+      setError(true);
+    }
+      setLoad(false)
+  }
+  useEffect(() => {
+    getSerie()
+  }, []);
+  const [data, setData]=useState([])
+  const [load, setLoad] = useState(true)
+  const [error,setError] = useState(false);
 
+if(load){
+  return(<Loading/>)
+}
+if(error){
+  return(<Error/>)
+}
 
-function Peliculas(image, tittleMovie) {
   return (
-    <div>
-      <div className="w-full flex justify-center">
-        <div className="w-9/12 py-7 flex flex-col sm:flex-row">
-
-            <div className="flex flex-col items-center justify-center">
-              <div className="bg-black w-48 h-64 relative flex items-center justify-center m-3">
-                <img className="" />
-              </div>
-              <p>Popular Series</p>
-            </div>
-
-        </div>
-      </div>
-  </div>
+    <div className="flex flex-wrap justify-center">
+    {
+      data.map((movie)=>{
+          return <Card titulo={movie.title} imagen={movie.images["Poster Art"].url} key={movie.title}/>
+      })
+    }
+    </div>
   )
 }
 

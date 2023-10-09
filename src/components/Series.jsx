@@ -1,25 +1,53 @@
-import React from 'react'
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Card from "./Card";
+import { getData } from "../libs/data";
+import Loading from "./Loading";
+import Popup from "./Popup";
 
 function Series() {
-  return (
-    <div>
-            <div>
-      <div className="w-full flex justify-center">
-        <div className="w-9/12 py-7 flex flex-col sm:flex-row">
+  const [data, setData] = useState([])
+const [load, setLoad] = useState(true)
+const [popup, setPopup] = useState(false)
+const [movie, setMovie]= useState({});
 
-            <div className="flex flex-col items-center justify-center">
-              <div className="bg-black w-48 h-64 relative flex items-center justify-center m-3">
-                <img className="" />
-              </div>
-              <p>Popular Series</p>
-            </div>
+  const getSerie = async ()=>{
+    setData( await getData('series'));
+    setLoad(false)
+  }
 
-        </div>
-      </div>
-  </div>
-  </div>
-  )
+  function handleClick(movie){
+    setPopup(true);
+    setMovie(movie);
+    console.log(movie)
+  }
+
+  
+  useEffect(() => {
+
+    getSerie()
+  }, []);
+
+
+
+
+if(load){
+  return(<Loading/>)
 }
 
-export default Series
+  return (
+    <div className="flex flex-wrap justify-center">
+    {
+      data.map((serie)=>{
+          return <Card handleClick={()=>handleClick(serie)} titulo={serie.title} imagen={serie.images["Poster Art"].url} key={serie.title}
+            
+          />
+
+      })
+    }
+    {popup && <Popup titulo={movie.title} imagen={movie.images["Poster Art"].url} description={movie.description} anio={movie.releaseYear}/>}
+    </div>
+  );
+
+}
+
+export default Series;

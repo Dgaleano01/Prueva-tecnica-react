@@ -9,11 +9,12 @@ import './App.css'
 
 function App() {
     const location=useLocation();
+    const path=location.pathname;
 
   return (
-    <div>
+    <div className='overflow-hidden'>
     <NavBar/>
-    <Tittle titulo={location.pathname}/>
+    <Tittle titulo={ (path=='/')? 'Titles': path.substring(1) }/>
    <Routes>
     <Route path='/' element={<Inicio/>}/>
     <Route path='/Series' element={<Series/>}/>
