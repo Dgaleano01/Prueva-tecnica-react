@@ -2,7 +2,7 @@
 - Descarga el repositorio
 - ejecuta "npm install" para descargar el node modules
 - ejecuta "npm run dev" para correr el proyecto
-- 
+
 # ¿Cómo decidió las opciones técnicas y arquitectónicas utilizadas como parte de su solución?
 Decidi usar la herramienta de React ya que es un framework facil de usar sin tantas limitaciones o sin una estructura muy estricta
 El motivo de las tecnicas y arquitectura que utilice fue a causa es la manera que se me hacia mas facil, ya que es la que he aprendido
